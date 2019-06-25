@@ -3,4 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    // bottom menu
+    <string name="redirect_url">https://instagram.com/</string>
+    <string name="base_url">https://api.instagram.com/</string>
+    <string name="home">home</string>
+    <string name="me">m</string>
+    <string name="profile">profile</string>
+    <string name="inbox">inbox</string>
+    <string name="visits">visits</string>
 </resources>
