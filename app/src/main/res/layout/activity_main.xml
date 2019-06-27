@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-   //RecyclerView aka the container that will take all the list Item and display them in there/
+   //RecyclerView aka the container that will take all the list
+    Item and display them in there/
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/recycler_view"
