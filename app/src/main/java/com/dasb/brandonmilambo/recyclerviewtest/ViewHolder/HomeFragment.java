@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dasb.brandonmilambo.recyclerviewtest.R;
+import com.dasb.brandonmilambo.recyclerviewtest.model.BaseNavFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.model.BottomNavState;
 
 public class HomeFragment extends BaseNavFragment {
@@ -20,7 +21,7 @@ public class HomeFragment extends BaseNavFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
-        updateBottomNavListener.updateBottomeNav(BottomNavState.HOME);
+        updateBottomNavListener.updateBottomNav(BottomNavState.HOME);
 
     }
 }

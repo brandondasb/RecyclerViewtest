@@ -1,4 +1,4 @@
-package com.dasb.brandonmilambo.recyclerviewtest.ViewHolder;
+package com.dasb.brandonmilambo.recyclerviewtest.model;
 
 import android.support.v4.app.Fragment;
 
