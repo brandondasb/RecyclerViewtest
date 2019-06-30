@@ -1,4 +1,4 @@
-package com.dasb.brandonmilambo.recyclerviewtest.ViewHolder;
+package com.dasb.brandonmilambo.recyclerviewtest.View;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

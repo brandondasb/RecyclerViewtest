@@ -6,4 +6,7 @@ import com.dasb.brandonmilambo.recyclerviewtest.interfaces.UpdateBottomNavListen
 
 public class BaseNavFragment extends Fragment {
     protected UpdateBottomNavListener updateBottomNavListener;
+    public void setUpdateBottomNavListener(UpdateBottomNavListener updateBottomNavListener){
+        this.updateBottomNavListener = updateBottomNavListener;
+    }
 }
