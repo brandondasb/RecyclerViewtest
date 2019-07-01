@@ -91,7 +91,10 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.nav_home:
                             if (fragmentManager.findFragmentByTag(HomeFragment.class.getName()) != null) {
                                 selectedFragment = (HomeFragment) fragmentManager.findFragmentByTag(HomeFragment.class.getName());
+                            }else{
+                                selectedFragment = new HomeFragment();
                             }
+
                             break;
                         case R.id.nav_visits:
                             if (fragmentManager.findFragmentByTag(VisitsFragment.class.getName()) != null) {

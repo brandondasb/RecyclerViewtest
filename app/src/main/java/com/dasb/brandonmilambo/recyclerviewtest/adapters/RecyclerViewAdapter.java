@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dasb.brandonmilambo.recyclerviewtest.R;
+import com.dasb.brandonmilambo.recyclerviewtest.View.HomeFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.ViewHolder.HomeViewHolder;
 
 import java.util.ArrayList;
