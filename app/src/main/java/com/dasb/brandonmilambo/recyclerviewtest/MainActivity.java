@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +16,8 @@ import com.dasb.brandonmilambo.recyclerviewtest.View.HomeFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.View.InboxFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.View.ProfileFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.View.VisitsFragment;
-import com.dasb.brandonmilambo.recyclerviewtest.adapters.RecyclerViewAdapter;
 import com.dasb.brandonmilambo.recyclerviewtest.interfaces.UpdateBottomNavListener;
-import com.dasb.brandonmilambo.recyclerviewtest.model.BaseNavFragment;
+import com.dasb.brandonmilambo.recyclerviewtest.View.BaseNavFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.model.BottomNavState;
 
 import java.util.ArrayList;
@@ -30,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     //***vars***
 
-    private FragmentManager  fragmentManager = getSupportFragmentManager();
-
-
+    private FragmentManager fragmentManager = getSupportFragmentManager();
 
 
     // same list as what in the adapter as this  is what will will pass to the adapter
@@ -43,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void updateBottomNav(BottomNavState currentState) {
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-            switch(currentState){
+            switch (currentState) {
                 case HOME:
                     bottomNavigationView.setSelectedItemId(R.id.nav_home);
                     break;
@@ -59,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate:Started.");
-        initImageBitmaps();// calling list of images
 
         //declaring bottom nav
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -74,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.setUpdateBottomNavListener(bottomNavListener);
         fragmentTransaction.replace(R.id.fragment_container, homeFragment).commit();
 
-        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,18 +79,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
         // confirm the purpose what would happening without this method?
     }
+
     // create a listener for the bottom navigation
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                     BaseNavFragment selectedFragment = null;
-                    switch (item.getItemId()){
+                    // check which item is click with a switch statement
+                    switch (item.getItemId()) {
                         case R.id.nav_home:
-                        if (fragmentManager.findFragmentByTag(HomeFragment.class.getName())!= null){
-                            selectedFragment = (HomeFragment) fragmentManager.findFragmentByTag(HomeFragment.class.getName());
-                        }
+                            if (fragmentManager.findFragmentByTag(HomeFragment.class.getName()) != null) {
+                                selectedFragment = (HomeFragment) fragmentManager.findFragmentByTag(HomeFragment.class.getName());
+                            }
                             break;
                         case R.id.nav_visits:
                             if (fragmentManager.findFragmentByTag(VisitsFragment.class.getName()) != null) {
@@ -120,31 +117,32 @@ public class MainActivity extends AppCompatActivity {
                         //this creates the fragment on item selected but its not showing yet.
 
                     }
-                    selectedFragment.setUpdateBottomNavListener(bottomNavListener);
-                    return  loadFragment(selectedFragment);
+
+                    selectedFragment.setUpdateBottomNavListener(bottomNavListener);//can get past this line of code
+                    return loadFragment(selectedFragment);
                 }
             };
 
     private boolean loadFragment(final BaseNavFragment fragment) {
-        if (isNotInBackStack(fragmentManager,fragment))   {
+        if (isNotInBackStack(fragmentManager, fragment)) {
             getSupportFragmentManager()
-                   .beginTransaction()
-                    .replace(R.id.fragment_container,fragment,fragment.getClass().getName())
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment, fragment.getClass().getName())
                     .addToBackStack(fragment.getClass().getName())
                     .commitAllowingStateLoss();
-            } else{
-            fragmentManager.popBackStack(fragment.getClass().getName(),0);
+        } else {
+            fragmentManager.popBackStack(fragment.getClass().getName(), 0);
         }
         return true;
     }
 
-    public static boolean isNotInBackStack(FragmentManager fragmentManager,Fragment existingFragment)   {
+    public static boolean isNotInBackStack(FragmentManager fragmentManager, Fragment existingFragment) {
         boolean result = true;
-        if (existingFragment!=  null){
+        if (existingFragment != null) {
             int backStackSize = fragmentManager.getBackStackEntryCount();       //gett the size of current backstack
-            for (int i = 0;i<backStackSize;i++)  {
+            for (int i = 0; i < backStackSize; i++) {
                 FragmentManager.BackStackEntry backStackEntry = fragmentManager.getBackStackEntryAt(i);
-                if (existingFragment.getClass().getName().equals(backStackEntry.getName())){
+                if (existingFragment.getClass().getName().equals(backStackEntry.getName())) {
                     result = false;
                     break;
                 }
@@ -155,33 +153,38 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(fragmentManager.getBackStackEntryCount()>1){
-            fragmentManager.popBackStack(HomeFragment.class.getName(),0);
-           }else{
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            fragmentManager.popBackStack(HomeFragment.class.getName(), 0);
+        } else {
             this.finish();
         }
     }
-
-    // list of images to be called in oncreate
-    private  void initImageBitmaps(){
-        Log.d(TAG,"initImageBtimaps: preparing bitmaps");
-        mImageURL.add("https://media.istockphoto.com/photos/brexit-strategy-concept-picture-id815062310");
-        mNames.add("test1");
-
-        mImageURL.add("https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?");
-        mNames.add("test2");
-
-
-        initRecyclerView(); // start the recycler once we have the bitmaps
-    }
-    private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView: init RecyclerView");
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,mNames,mImageURL);
-        recyclerView.setAdapter(adapter); //set adapter to the recyclerview
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-    }
+//
+//    // list of images to be called in oncreate
+//    private  void initImageBitmaps(){
+//
+//
+//        initRecyclerView(); // start the recycler once we have the bitmaps
+//
+//
+//        Log.d(TAG,"initImageBtimaps: preparing bitmaps");
+//
+//        mImageURL.add("https://media.istockphoto.com/photos/brexit-strategy-concept-picture-id815062310");
+//        mNames.add("test1");
+//
+//        mImageURL.add("https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?");
+//        mNames.add("test2");
+//
+//
+//    }
+//    private void initRecyclerView(){
+//        Log.d(TAG, "initRecyclerView: init RecyclerView");
+//
+//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,mNames,mImageURL);
+//        recyclerView.setAdapter(adapter); //set adapter to the recyclerview
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//    }
 
 }

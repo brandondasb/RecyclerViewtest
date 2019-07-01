@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dasb.brandonmilambo.recyclerviewtest.R;
-import com.dasb.brandonmilambo.recyclerviewtest.model.BaseNavFragment;
 import com.dasb.brandonmilambo.recyclerviewtest.model.BottomNavState;
 
 public class ProfileFragment extends BaseNavFragment {
