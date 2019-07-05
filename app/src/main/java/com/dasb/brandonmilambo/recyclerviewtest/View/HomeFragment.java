@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.dasb.brandonmilambo.recyclerviewtest.R;
 import com.dasb.brandonmilambo.recyclerviewtest.adapters.RecyclerViewAdapter;
 import com.dasb.brandonmilambo.recyclerviewtest.model.BottomNavState;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
@@ -19,20 +20,26 @@ import static android.support.constraint.Constraints.TAG;
 
 public class HomeFragment extends BaseNavFragment {
     @Nullable
-    //VARS
+    //**VARS**
     // same list as what in the adapter as this  is what will will pass to the adapter
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageURL = new ArrayList<>();
+    // shimmer facebook loading effect
+    private ShimmerFrameLayout homeShimmerViewContainer ;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView =  v.findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(),mNames,mImageURL);
         recyclerView.setAdapter(adapter); //set adapter to the recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//
+       homeShimmerViewContainer = v.findViewById(R.id.shimmer_view_container);
+
         /** add images to list**/
         initImageBitmaps();// calling list of images
+
         return v;
 
     }
@@ -41,7 +48,20 @@ public class HomeFragment extends BaseNavFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         updateBottomNavListener.updateBottomNav(BottomNavState.HOME);
+        homeShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
 
+    }
+
+    @Override
+    public void onResume() {
+        homeShimmerViewContainer.startShimmerAnimation();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        homeShimmerViewContainer.stopShimmerAnimation();
+        super.onPause();
     }
 
     // list of images to be called in onCreate
@@ -57,6 +77,8 @@ public class HomeFragment extends BaseNavFragment {
 
         mImageURL.add("https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?");
         mNames.add("test2");
+        homeShimmerViewContainer.stopShimmerAnimation();
+        homeShimmerViewContainer.setVisibility(View.GONE);
 
     }
 

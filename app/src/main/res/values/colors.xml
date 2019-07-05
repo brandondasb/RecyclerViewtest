@@ -3,6 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    //
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
     // bottom menu
     <string name="redirect_url">https://instagram.com/</string>
     <string name="base_url">https://api.instagram.com/</string>
