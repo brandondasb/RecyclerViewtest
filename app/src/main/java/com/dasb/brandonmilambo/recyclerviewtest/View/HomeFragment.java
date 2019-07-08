@@ -31,17 +31,16 @@ public class HomeFragment extends BaseNavFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+       homeShimmerViewContainer = v.findViewById(R.id.shimmer_view_container);
+        initImageBitmaps();// calling list of images
         RecyclerView recyclerView =  v.findViewById(R.id.recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(),mNames,mImageURL);
         recyclerView.setAdapter(adapter); //set adapter to the recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//
-       homeShimmerViewContainer = v.findViewById(R.id.shimmer_view_container);
-
         /** add images to list**/
-        initImageBitmaps();// calling list of images
+
 
         return v;
-
     }
 
     @Override
@@ -71,6 +70,8 @@ public class HomeFragment extends BaseNavFragment {
         initRecyclerView(); // start the recycler once we have the bitmaps
 
       //  Log.d(TAG, "initImageBtimaps: preparing bitmaps");
+        mImageURL.clear();
+        mNames.clear();
 
         mImageURL.add("https://media.istockphoto.com/photos/brexit-strategy-concept-picture-id815062310");
         mNames.add("test1");
